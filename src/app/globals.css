@@ -83,3 +83,8 @@
         @apply text-sm md:text-base text-gray-700 mb-4 md:mb-6;
     }
 }
+@layer utilities{
+    .active{
+        @apply border-b-4 border-b-[#004924] font-medium
+    }
+}

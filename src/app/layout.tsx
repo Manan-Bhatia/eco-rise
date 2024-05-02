@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter as FontSanas } from "next/font/google";
 import { cn } from "@/lib/utils";
+import NavBar from "@/components/Navbar";
 
 import "./globals.css";
 
@@ -20,10 +21,11 @@ export default function RootLayout({
         <html lang="en">
             <body
                 className={cn(
-                    " bg-background h-dvh font-sans antialiased ",
+                    " bg-background h-dvh font-sans antialiased p-1.5",
                     fontSans.variable
                 )}
             >
+                <NavBar />
                 {children}
             </body>
         </html>

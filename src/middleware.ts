@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
-const publicPaths = ["/login", "/signup"];
+const publicPaths = ["/login", "/signup", "/"];
 export async function middleware(request: NextRequest) {
     const path: string = request.nextUrl.pathname;
     const isPublicPath = publicPaths.includes(path);
@@ -20,10 +20,9 @@ export async function middleware(request: NextRequest) {
     }
 
     if (isPublicPath) {
-        if (tokenValid) {
-            return NextResponse.redirect(new URL("/", request.nextUrl));
+        if (!tokenValid) {
+            return;
         }
-        return;
     } else {
         if (!tokenValid) {
             const response = NextResponse.redirect(
