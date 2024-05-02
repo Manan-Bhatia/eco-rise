@@ -1,4 +1,5 @@
 "use client";
+import { Loader2 } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,6 +17,7 @@ import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useState } from "react";
 
 const signUpSchema = z
     .object({
@@ -70,8 +72,10 @@ export default function Signup() {
             confirmPassword: "",
         },
     });
+    const [submitting, setSubmitting] = useState<boolean>(false);
     async function onSubmit(data: SignUpSchemaType) {
         try {
+            setSubmitting(true);
             const response = await axios.post("/api/signup", data);
             if (response.status === 201) {
                 toast.success(response.data.message, {
@@ -87,6 +91,8 @@ export default function Signup() {
                 duration: 2000,
                 position: "bottom-center",
             });
+        } finally {
+            setSubmitting(false);
         }
     }
     return (
@@ -173,7 +179,16 @@ export default function Signup() {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" disabled={submitting}>
+                        {submitting ? (
+                            <>
+                                <Loader2 className="mr-2 w-4 animate-spin" />
+                                <span>Please wait</span>
+                            </>
+                        ) : (
+                            <span>Submit</span>
+                        )}
+                    </Button>
                 </form>
             </Form>
             <div className="w-full flex justify-between items-start">

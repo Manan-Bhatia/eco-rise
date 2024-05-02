@@ -16,29 +16,59 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
-import Link from "next/link";
 import { useState } from "react";
 
-const loginSchema = z.object({
-    email: z.string().min(1, "Email is required").email("Invalid email"),
-    password: z.string().min(1, "Password is required"),
-});
-type LoginSchemaType = z.infer<typeof loginSchema>;
+const forgotSchema = z
+    .object({
+        password: z
+            .string()
+            .min(1, "Password is required")
+            .min(5, "Password must have more than 5 characters")
+            .refine(
+                (val) => {
+                    return (
+                        /[a-z]/.test(val) &&
+                        /[A-Z]/.test(val) &&
+                        /\d/.test(val) &&
+                        /[!@#$%^&*]/.test(val)
+                    );
+                },
+                {
+                    message:
+                        "Password must have at least 1 uppercase, 1 lowercase, 1 number and atleast 1 special character",
+                }
+            ),
+        confirmPassword: z.string().min(1, "Confirm password is required"),
+        forgotPasswordToken: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+    });
+type ForgotSchemaType = z.infer<typeof forgotSchema>;
 
-export default function Login() {
+export default function ForgotPassword({
+    params,
+}: {
+    params: {
+        forgotPasswordToken: string;
+    };
+}) {
     const router = useRouter();
-    const form = useForm<LoginSchemaType>({
-        resolver: zodResolver(loginSchema),
+    const form = useForm<ForgotSchemaType>({
+        resolver: zodResolver(forgotSchema),
         defaultValues: {
-            email: "",
             password: "",
+            confirmPassword: "",
+            forgotPasswordToken:
+                decodeURIComponent(params.forgotPasswordToken) || "",
         },
     });
     const [submitting, setSubmitting] = useState<boolean>(false);
-    async function onSubmit(data: LoginSchemaType) {
+    async function onSubmit(data: ForgotSchemaType) {
         try {
             setSubmitting(true);
-            const response = await axios.post("/api/login", data);
+            const response = await axios.put("/api/forgotpassword", data);
             if (response.status === 200) {
                 toast.success(response.data.message, {
                     duration: 2000,
@@ -60,34 +90,13 @@ export default function Login() {
     return (
         <div className="space-y-2">
             <Toaster />
-            <h1>Login</h1>
-            <p>
-                Join Eco Rise and elevate your space with sustainable solutions.
-                Login now to make every project a beacon of eco-friendly
-                innovation!
-            </p>
+            <h1>Reset Password</h1>
+            <p>Enter your new password below to reset your password.</p>
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="flex flex-col gap-4"
                 >
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Email"
-                                        {...field}
-                                        autoComplete="email"
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
                     <FormField
                         control={form.control}
                         name="password"
@@ -98,8 +107,26 @@ export default function Login() {
                                     <Input
                                         placeholder="Password"
                                         type="password"
-                                        autoComplete="current-password"
+                                        autoComplete="new-password"
                                         {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="confirmPassword"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Confirm Password</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Confirm Password"
+                                        type="password"
+                                        {...field}
+                                        autoComplete="new-password"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -118,28 +145,6 @@ export default function Login() {
                     </Button>
                 </form>
             </Form>
-            <div className="w-full flex justify-between items-start">
-                <h4 className="text-base md:text-lg font-normal mb-0 md:mb-2">
-                    Forgot Your Password?
-                </h4>
-                <Link
-                    className="text-blue-500 text-sm md:text-base hover:underline whitespace-nowrap"
-                    href="/forgotpassword"
-                >
-                    Reset password
-                </Link>
-            </div>
-            <div className="w-full flex justify-between items-start">
-                <h4 className="text-base md:text-lg font-normal mb-0 md:mb-2">
-                    New to SyncSkecth?
-                </h4>
-                <Link
-                    className="text-blue-500 text-sm md:text-base hover:underline"
-                    href="/signup"
-                >
-                    Signup{" "}
-                </Link>
-            </div>
         </div>
     );
 }
