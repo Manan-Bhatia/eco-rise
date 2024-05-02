@@ -10,9 +10,10 @@ const appointmentSchema = new mongoose.Schema({
         enum: ["5 Day Roof", "Paint", "Solar", "Roof Coating"],
     },
     appointmentDate: Date,
+    appointmentTime: Date,
     status: {
         type: String,
-        enum: ["pending", "confirmed", "completed", "cancelled"],
+        enum: ["pending", "completed"],
         default: "pending",
     },
 });
