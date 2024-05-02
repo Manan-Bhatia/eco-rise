@@ -44,7 +44,7 @@ export default function NavBar() {
     }, [pathName]);
 
     return (
-        <header className="flex justify-between">
+        <header className="flex justify-between p-2 md:px-10 md:py-5">
             <span className="text-2xl md:text-3xl font-bold">Eco Rise</span>
             <nav className="hidden md:block">
                 <ul className="flex gap-4 items-center">
