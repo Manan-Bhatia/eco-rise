@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter as FontSanas } from "next/font/google";
 import { cn } from "@/lib/utils";
-import NavBar from "@/components/Navbar";
 
 import "./globals.css";
 
@@ -25,7 +24,6 @@ export default function RootLayout({
                     fontSans.variable
                 )}
             >
-                <NavBar />
                 {children}
             </body>
         </html>
