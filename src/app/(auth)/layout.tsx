@@ -23,11 +23,6 @@ export default function HomeLayout({
             <Card className="w-11/12 md:w-3/4 lg:w-1/3">
                 <CardHeader>
                     <CardTitle>Welcome to Eco Rise</CardTitle>
-                    <CardDescription className="text-base">
-                        Join Eco Rise and elevate your space with sustainable
-                        solutions. Sign up today to make every project a beacon
-                        of eco-friendly innovation!
-                    </CardDescription>
                 </CardHeader>
                 <CardContent>{children}</CardContent>
             </Card>

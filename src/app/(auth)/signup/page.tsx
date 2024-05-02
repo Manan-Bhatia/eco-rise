@@ -93,6 +93,11 @@ export default function Signup() {
         <div className="space-y-2">
             <Toaster />
             <h1>Signup</h1>
+            <p>
+                Join Eco Rise and elevate your space with sustainable solutions.
+                Sign up today to make every project a beacon of eco-friendly
+                innovation!
+            </p>
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
