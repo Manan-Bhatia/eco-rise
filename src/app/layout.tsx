@@ -7,7 +7,7 @@ import "./globals.css";
 const fontSans = FontSanas({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-    title: "Pluto - Eco Rise",
+    title: "Eco Rise",
     description: "Eco Rise",
 };
 
@@ -20,7 +20,7 @@ export default function RootLayout({
         <html lang="en">
             <body
                 className={cn(
-                    "min-h-screen bg-background font-sans antialiased",
+                    " bg-background h-dvh font-sans antialiased ",
                     fontSans.variable
                 )}
             >

@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
+import Link from "next/link";
 
 const loginSchema = z.object({
     email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -51,13 +52,13 @@ export default function Login() {
         }
     }
     return (
-        <>
+        <div className="space-y-2">
             <Toaster />
             <h1>Login</h1>
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
+                    className="flex flex-col gap-4"
                 >
                     <FormField
                         control={form.control}
@@ -97,6 +98,28 @@ export default function Login() {
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>
-        </>
+            <div className="w-full flex justify-between items-start">
+                <h4 className="text-base md:text-lg font-normal mb-0 md:mb-2">
+                    Forgot Your Password?
+                </h4>
+                <Link
+                    className="text-blue-500 text-sm md:text-base hover:underline whitespace-nowrap"
+                    href="/forgotpassword"
+                >
+                    Reset password
+                </Link>
+            </div>
+            <div className="w-full flex justify-between items-start">
+                <h4 className="text-base md:text-lg font-normal mb-0 md:mb-2">
+                    New to SyncSkecth?
+                </h4>
+                <Link
+                    className="text-blue-500 text-sm md:text-base hover:underline"
+                    href="/signup"
+                >
+                    Signup{" "}
+                </Link>
+            </div>
+        </div>
     );
 }

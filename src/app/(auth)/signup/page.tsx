@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const signUpSchema = z
     .object({
@@ -89,13 +90,13 @@ export default function Signup() {
         }
     }
     return (
-        <>
+        <div className="space-y-2">
             <Toaster />
             <h1>Signup</h1>
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
+                    className="flex flex-col gap-4"
                 >
                     <FormField
                         control={form.control}
@@ -170,6 +171,17 @@ export default function Signup() {
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>
-        </>
+            <div className="w-full flex justify-between items-start">
+                <h4 className="text-base md:text-lg font-normal mb-0 md:mb-2">
+                    Already have an account?
+                </h4>
+                <Link
+                    className="text-blue-500 text-sm md:text-base hover:underline whitespace-nowrap"
+                    href="/login"
+                >
+                    Login
+                </Link>
+            </div>
+        </div>
     );
 }
