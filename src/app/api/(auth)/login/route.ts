@@ -89,6 +89,21 @@ export async function POST(request: NextRequest) {
         );
         // settign the token in the cookie
         response.cookies.set("token", token, { httpOnly: true });
+        // check if user is admin or not
+        if (user.role === "admin") {
+            const adminToken = await new SignJWT({
+                ...tokenData,
+                role: "admin",
+            })
+                .setProtectedHeader({
+                    alg: "HS256",
+                    typ: "JWT",
+                })
+                .setExpirationTime("1day")
+                .setIssuedAt(Math.floor(Date.now() / 1000))
+                .sign(new TextEncoder().encode(process.env.TOKEN_SECRET!));
+            response.cookies.set("adminToken", adminToken, { httpOnly: true });
+        }
         // return the response
         return response;
     } catch (error) {

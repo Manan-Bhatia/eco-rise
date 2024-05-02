@@ -12,6 +12,10 @@ export async function GET() {
             httpOnly: true,
             expires: new Date(0),
         });
+        response.cookies.set("adminToken", "", {
+            httpOnly: true,
+            expires: new Date(0),
+        });
         return response;
     } catch (error) {
         return NextResponse.json(

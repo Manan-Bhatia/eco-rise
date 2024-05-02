@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
     },
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
+    role: {
+        type: String,
+        enum: ["admin", "user"],
+        default: "user",
+    },
 });
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

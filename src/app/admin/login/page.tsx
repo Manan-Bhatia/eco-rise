@@ -17,7 +17,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const loginSchema = z.object({
     email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -45,7 +45,7 @@ export default function Login() {
                     position: "bottom-center",
                 });
                 setTimeout(() => {
-                    router.replace("/");
+                    router.replace("/admin");
                 }, 2000);
             }
         } catch (error: any) {
