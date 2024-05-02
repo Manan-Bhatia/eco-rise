@@ -7,6 +7,17 @@ import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { Contact, Calendar, LogOut, User, ChevronDown } from "lucide-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 export default function NavBar() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     const pathName = usePathname();
@@ -46,7 +57,7 @@ export default function NavBar() {
     return (
         <header className="flex justify-between p-2 md:px-10 md:py-5">
             <span className="text-2xl md:text-3xl font-bold">Eco Rise</span>
-            <nav className="hidden md:block">
+            <nav className="hidden md:flex items-center gap-2">
                 <ul className="flex gap-4 items-center">
                     <li>
                         <Link
@@ -149,19 +160,74 @@ export default function NavBar() {
                             ></span>
                         </Link>
                     </li>
-                    {loggedIn ? (
-                        <li>
-                            <Button onClick={logout}>Logout</Button>
-                        </li>
-                    ) : (
-                        <li>
-                            <Link href="/signup">
-                                <Button>Signup</Button>
-                            </Link>
-                        </li>
-                    )}
                 </ul>
+                {loggedIn ? (
+                    <>
+                        {/* <Button onClick={logout}>Logout</Button> */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="ghost"
+                                    className="flex gap-2 items-center"
+                                >
+                                    <span className="text-lg">Manan</span>
+                                    <FaRegCircleUser
+                                        size={24}
+                                        className="cursor-pointer"
+                                    />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>
+                                    My Account
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup>
+                                    <DropdownMenuItem asChild>
+                                        <Link
+                                            href="/estimaterequests"
+                                            className="flex"
+                                        >
+                                            <User className="mr-2 h-4 w-4" />
+                                            <span>Estimate Requests</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link
+                                            href="/appointments"
+                                            className="flex"
+                                        >
+                                            <Calendar className="mr-2 h-4 w-4" />
+                                            <span>Appointments</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link
+                                            className="flex"
+                                            href="/contactrequests"
+                                        >
+                                            <Contact className="mr-2 h-4 w-4" />
+                                            <span>Contact Requests</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                </DropdownMenuGroup>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={logout}>
+                                    <LogOut className="mr-2 h-4 w-4" />
+                                    <span>Log out</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </>
+                ) : (
+                    <>
+                        <Link href="/signup">
+                            <Button>Signup</Button>
+                        </Link>
+                    </>
+                )}
             </nav>
+
             <HiMenuAlt3
                 size={36}
                 className="cursor-pointer md:hidden"
@@ -261,6 +327,12 @@ export default function NavBar() {
                             >
                                 Contact
                             </Link>
+                        </li>
+                        <li className="flex flex-col gap-2">
+                            <div className="flex justify-between items-center ">
+                                <span>My Account</span>
+                                <ChevronDown size={24} />
+                            </div>
                         </li>
                     </ul>
                     <div className="flex flex-col gap-2">
