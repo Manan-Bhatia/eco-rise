@@ -1,7 +1,7 @@
 "use client";
 import { IoClose } from "react-icons/io5";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
@@ -14,11 +14,34 @@ export default function NavBar() {
     const logout = async () => {
         try {
             await axios.get("/api/logout");
+            setLoggedIn(false);
             router.replace("/login");
         } catch (error) {
             console.log("Error in logout", error);
         }
     };
+
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
+    let timeout: NodeJS.Timeout;
+    useEffect(() => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            checkLoggedInStatus();
+        }, 100);
+        return () => clearTimeout(timeout);
+    }, []);
+    const checkLoggedInStatus = async () => {
+        try {
+            const res = await axios.get("/api/getuser");
+            if (res.status === 200) setLoggedIn(true);
+        } catch (error) {
+            console.log(error);
+            setLoggedIn(false);
+        }
+    };
+    useEffect(() => {
+        checkLoggedInStatus();
+    }, [pathName]);
 
     return (
         <header className="flex justify-between">
@@ -126,14 +149,17 @@ export default function NavBar() {
                             ></span>
                         </Link>
                     </li>
-                    <li>
-                        <Button onClick={logout}>Logout</Button>
-                    </li>
-                    <li>
-                        <Link href="/signup">
-                            <Button>Signup</Button>
-                        </Link>
-                    </li>
+                    {loggedIn ? (
+                        <li>
+                            <Button onClick={logout}>Logout</Button>
+                        </li>
+                    ) : (
+                        <li>
+                            <Link href="/signup">
+                                <Button>Signup</Button>
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </nav>
             <HiMenuAlt3
@@ -238,23 +264,37 @@ export default function NavBar() {
                         </li>
                     </ul>
                     <div className="flex flex-col gap-2">
-                        <Link href="/login" onClick={() => setMenuOpen(false)}>
-                            <Button className="w-full" variant="secondary">
-                                Login
+                        {loggedIn ? (
+                            <Button
+                                className="w-full"
+                                onClick={() => {
+                                    logout();
+                                    setMenuOpen(false);
+                                }}
+                            >
+                                Logout
                             </Button>
-                        </Link>
-                        <Link href="/signup" onClick={() => setMenuOpen(false)}>
-                            <Button className="w-full">Signup</Button>
-                        </Link>
-                        <Button
-                            className="w-full"
-                            onClick={() => {
-                                logout();
-                                setMenuOpen(false);
-                            }}
-                        >
-                            Logout
-                        </Button>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/login"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    <Button
+                                        className="w-full"
+                                        variant="secondary"
+                                    >
+                                        Login
+                                    </Button>
+                                </Link>
+                                <Link
+                                    href="/signup"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    <Button className="w-full">Signup</Button>
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </nav>
