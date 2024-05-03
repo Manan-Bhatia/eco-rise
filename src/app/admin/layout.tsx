@@ -8,5 +8,5 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    return <main className="h-full">{children}</main>;
+    return <main className="h-full md:px-10 md:py-5 p-4">{children}</main>;
 }
