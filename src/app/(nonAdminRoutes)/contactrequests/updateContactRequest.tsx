@@ -28,29 +28,40 @@ const contactUsSchema = z.object({
     message: z.string().min(1, "Message is required"),
 });
 type ContactUsSchematype = z.infer<typeof contactUsSchema>;
+import { ContactRequest } from "./columns";
 
-export default function Contact() {
+export default function UpdateContactRequest({
+    contactRequest,
+    callRefresh,
+}: {
+    contactRequest: ContactRequest;
+    callRefresh: () => void;
+}) {
     const router = useRouter();
     const form = useForm<ContactUsSchematype>({
         resolver: zodResolver(contactUsSchema),
         defaultValues: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            subject: "",
-            message: "",
+            firstName: contactRequest.name.split(" ")[0],
+            lastName: contactRequest.name.split(" ")[1] || "",
+            email: contactRequest.email,
+            subject: contactRequest.subject,
+            message: contactRequest.message,
         },
     });
     const [submitting, setSubmitting] = useState<boolean>(false);
     async function onSubmit(data: ContactUsSchematype) {
         try {
             setSubmitting(true);
-            const response = await axios.post("/api/contactrequest", data);
-            if (response.status === 201) {
+            const response = await axios.put("/api/contactrequest", {
+                ...data,
+                _id: contactRequest._id,
+            });
+            if (response.status === 200) {
                 toast.success(response.data.message, {
                     duration: 2000,
                     position: "bottom-center",
                 });
+                callRefresh();
             }
         } catch (error: any) {
             toast.error(error.response.data.message, {
@@ -62,13 +73,9 @@ export default function Contact() {
         }
     }
     return (
-        <div className="flex items-center justify-center h-full">
+        <div className="">
             <div className="space-y-2">
                 <Toaster />
-                <h1>Contact us</h1>
-                <p>
-                    Fill in the details and we'll get in touch with you shortly!
-                </p>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}

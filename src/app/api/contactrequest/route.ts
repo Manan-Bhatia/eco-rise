@@ -82,3 +82,66 @@ export async function GET(request: NextRequest) {
         );
     }
 }
+
+export async function DELETE(request: NextRequest) {
+    try {
+        const reqBody: { id: string } = await request.json();
+        const { id } = reqBody;
+        const deletedContactRequest = await ContactRequest.findByIdAndDelete(
+            id
+        );
+        if (!deletedContactRequest)
+            return NextResponse.json(
+                {
+                    message: "Contact request not found.",
+                },
+                {
+                    status: 404,
+                }
+            );
+        else
+            return NextResponse.json(
+                {
+                    message: "Contact request deleted successfully.",
+                },
+                {
+                    status: 200,
+                }
+            );
+    } catch (error) {
+        return NextResponse.json(
+            {
+                message: "Error occured while deleting your contact request.",
+            },
+            { status: 500 }
+        );
+    }
+}
+
+export async function PUT(request: NextRequest) {
+    try {
+        const reqBody = await request.json();
+        const { _id, ...updatedData } = reqBody;
+        updatedData.name = updatedData.firstName + " " + updatedData.lastName;
+        delete updatedData.firstName;
+        delete updatedData.lastName;
+        await ContactRequest.findOneAndUpdate(
+            { _id },
+            { $set: updatedData },
+            { new: true }
+        );
+        return NextResponse.json(
+            { message: "Contact Request updated successfully" },
+            { status: 200 }
+        );
+    } catch (error) {
+        return NextResponse.json(
+            {
+                message: "Error occured while updating your contact request.",
+            },
+            {
+                status: 500,
+            }
+        );
+    }
+}
