@@ -39,6 +39,18 @@ import {
 } from "@/components/ui/carousel";
 import AutoPlay from "embla-carousel-autoplay";
 import { MdEmail, MdCall } from "react-icons/md";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import EstimateRequestForm from "./estimateRequestForm";
 
 export default function Home() {
     const router = useRouter();
@@ -50,7 +62,27 @@ export default function Home() {
                 <h1 className="text-center">
                     Exceeding Expectations Since 2009
                 </h1>
-                <Button>Get Estimate</Button>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button>Get Estimate</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Get Estimate</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Fill in the details and we'll get back to you
+                                shortly!
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <EstimateRequestForm />
+                        <AlertDialogFooter>
+                            <AlertDialogCancel className="w-full">
+                                Cancel
+                            </AlertDialogCancel>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+
                 <div className="mt-4 grid grid-cols-2 grid-rows-2 gap-4">
                     <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center">
                         <Image src={FiveDayRoof} alt={"5 Day Roof"} />
