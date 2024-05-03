@@ -12,7 +12,7 @@ export default function RootLayout({
     return (
         <>
             <NavBar />
-            <main>{children}</main>
+            <main className="h-full">{children}</main>
         </>
     );
 }
