@@ -122,7 +122,9 @@ export async function PUT(request: NextRequest) {
     try {
         const reqBody = await request.json();
         const { _id, ...updatedData } = reqBody;
-        updatedData.name = updatedData.firstName + " " + updatedData.lastName;
+        if (updatedData.firstName && updatedData.lastName)
+            updatedData.name =
+                updatedData.firstName + " " + updatedData.lastName;
         delete updatedData.firstName;
         delete updatedData.lastName;
         await ContactRequest.findOneAndUpdate(
