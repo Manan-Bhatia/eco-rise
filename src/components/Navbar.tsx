@@ -41,10 +41,14 @@ export default function NavBar() {
         }, 100);
         return () => clearTimeout(timeout);
     }, []);
+    const [username, setUsername] = useState<string>("");
     const checkLoggedInStatus = async () => {
         try {
             const res = await axios.get("/api/getuser");
-            if (res.status === 200) setLoggedIn(true);
+            if (res.status === 200) {
+                setLoggedIn(true);
+                setUsername(res.data.username);
+            }
         } catch (error) {
             console.log(error);
             setLoggedIn(false);
@@ -172,7 +176,7 @@ export default function NavBar() {
                                     variant="ghost"
                                     className="flex gap-2 items-center"
                                 >
-                                    <span className="text-lg">Manan</span>
+                                    <span className="text-lg">{username}</span>
                                     <FaRegCircleUser
                                         size={24}
                                         className="cursor-pointer"
