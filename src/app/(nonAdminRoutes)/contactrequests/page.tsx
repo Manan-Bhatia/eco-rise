@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ContactRequest, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
+import DataTableSkeleton from "@/components/ui/data-table-skeleton";
+
 import { Skeleton } from "@/components/ui/skeleton";
 export default function ContactRequests() {
     const [data, setdata] = useState<ContactRequest[]>();
@@ -32,7 +34,7 @@ export default function ContactRequests() {
             ) : error ? (
                 <h3>An error occurred</h3>
             ) : (
-                <Skeleton className="w-full h-10" />
+                <DataTableSkeleton columns={5} />
             )}
         </div>
     );
