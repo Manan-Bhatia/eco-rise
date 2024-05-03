@@ -96,11 +96,11 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="w-full">
-            <div className="flex items-center pb-4">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-0 items-center pb-4">
                 {columnNames &&
                     columnNames.length > 0 &&
                     filterSelected != "" && (
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 md:gap-4">
                             <Input
                                 disabled={columnNames.length == 0}
                                 placeholder={`Search by ${filterSelected}`}
@@ -138,7 +138,7 @@ export function DataTable<TData, TValue>({
                     )}
 
                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
+                    <DropdownMenuTrigger asChild className="hidden sm:flex">
                         <Button variant="outline" className="ml-auto">
                             Visible Columns{" "}
                             <ChevronDown className="ml-2 h-4 w-4" />

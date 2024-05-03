@@ -23,7 +23,7 @@ export function DataTablePagination<TData>({
     table,
 }: DataTablePaginationProps<TData>) {
     return (
-        <div className="flex items-center justify-between px-2 pt-4">
+        <div className="flex flex-col md:flex-row items-center justify-between px-2 pt-2 md:pt-4">
             <div>Total Row(s) Count: {table.getRowCount()}</div>
 
             <div className="flex items-center space-x-6 lg:space-x-8">
