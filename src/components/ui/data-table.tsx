@@ -297,7 +297,6 @@ function Filter({ column }: { column: Column<any, unknown> }) {
             minute: "2-digit",
         });
     }
-    console.log("filtervalue", columnFilterValue);
     return filterVariant === "date" ? (
         <div>
             <Popover>
@@ -321,7 +320,6 @@ function Filter({ column }: { column: Column<any, unknown> }) {
                         mode="single"
                         selected={new Date(dateString || "")}
                         onSelect={(value) => {
-                            console.log(value);
                             column.setFilterValue(
                                 value?.toLocaleDateString("en-US", {
                                     month: "short",
@@ -346,10 +344,11 @@ function Filter({ column }: { column: Column<any, unknown> }) {
     ) : filterVariant === "select" ? (
         <Select
             onValueChange={(e) => {
-                if (e === " ") column.setFilterValue("");
-                else column.setFilterValue(e);
+                if (e === " ") {
+                    column.setFilterValue("");
+                } else column.setFilterValue(e);
             }}
-            value={columnFilterValue?.toString()}
+            value={columnFilterValue ? columnFilterValue.toString() : " "}
             defaultValue=" "
         >
             <SelectTrigger className="w-full">
