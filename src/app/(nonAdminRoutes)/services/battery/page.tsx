@@ -13,17 +13,17 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import EstimateRequestForm from "../../estimateRequestForm";
-import Batterypic from "../../../../../public/battery.jpeg";
-import Battery1 from "../../../../../public/battery1.png";
-import Battery2 from "../../../../../public/battery2.png";
-import Battery3 from "../../../../../public/battery3.png";
-import BatteryCenter from "../../../../../public/batterycenter.png";
-import BatteryGif from "../../../../../public/batterygif.gif";
-import B1 from "../../../../../public/b1.png";
-import B2 from "../../../../../public/b2.png";
-import B3 from "../../../../../public/b3.png";
-import B4 from "../../../../../public/b4.png";
-import B5 from "../../../../../public/b5.png";
+import Batterypic from "/public/battery.jpeg";
+import Battery1 from "/public/battery1.png";
+import Battery2 from "/public/battery2.png";
+import Battery3 from "/public/battery3.png";
+import BatteryCenter from "/public/batterycenter.png";
+import BatteryGif from "/public/batterygif.gif";
+import B1 from "/public/b1.png";
+import B2 from "/public/b2.png";
+import B3 from "/public/b3.png";
+import B4 from "/public/b4.png";
+import B5 from "/public/b5.png";
 
 export default function Battery() {
     return (
@@ -163,7 +163,9 @@ export default function Battery() {
                     <h2>No Maintenance Costs</h2>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-4 w-11/12 lg:w-3/4 xl:w-1/2">
-                    <h1 className="text-center">Eligible for 30% Federal Tax Credit</h1>
+                    <h1 className="text-center">
+                        Eligible for 30% Federal Tax Credit
+                    </h1>
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
                             <Button>Get Estimate</Button>

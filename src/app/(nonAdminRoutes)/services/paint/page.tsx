@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MdEmail, MdCall } from "react-icons/md";
-import Painting from "../../../../../public/paint.png";
-import Aboutus1 from "../../../../../public/aboutus2.jpg";
+import Painting from "/public/paint.png";
+import Aboutus1 from "/public/aboutus2.jpg";
 import { Button } from "@/components/ui/button";
 import {
     AlertDialog,
@@ -15,10 +15,10 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import EstimateRequestForm from "../../estimateRequestForm";
-import Paint1 from "../../../../../public/paint1.png";
-import Paint2 from "../../../../../public/paint2.png";
-import Paint3 from "../../../../../public/paint3.png";
-import Paint4 from "../../../../../public/paint4.png";
+import Paint1 from "/public/paint1.png";
+import Paint2 from "/public/paint2.png";
+import Paint3 from "/public/paint3.png";
+import Paint4 from "/public/paint4.png";
 export default function Paint() {
     return (
         <div className="flex flex-col gap-4 h-full">

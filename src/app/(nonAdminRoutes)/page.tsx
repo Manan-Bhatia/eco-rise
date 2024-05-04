@@ -2,24 +2,24 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import FiveDayRoof from "../../../public/5DayRoof.png";
-import LifeTimePaint from "../../../public/lifetimepaint.png";
-import Solar from "../../../public/solar.png";
-import RoofCoating from "../../../public/roofcoating.png";
-import Reviews from "../../../public/reviews.png";
-import Home1 from "../../../public/home1.png";
-import ProjectCompleted from "../../../public/projectcompleted.png";
-import Happpy from "../../../public/happy.png";
-import Partner from "../../../public/partners.png";
+import FiveDayRoof from "/public/5dayroof.png";
+import LifeTimePaint from "/public/lifetimepaint.png";
+import Solar from "/public/solar.png";
+import RoofCoating from "/public/roofcoating.png";
+import Reviews from "/public/reviews.png";
+import Home1 from "/public/home1.png";
+import ProjectCompleted from "/public/projectcompleted.png";
+import Happpy from "/public/happy.png";
+import Partner from "/public/partners.png";
 import Image from "next/image";
-import Image1 from "../../../public/reviews/1.png";
-import Image2 from "../../../public/reviews/2.png";
-import Image3 from "../../../public/reviews/3.png";
-import Image4 from "../../../public/reviews/4.png";
-import Image5 from "../../../public/reviews/5.png";
-import Image6 from "../../../public/reviews/6.png";
-import Image7 from "../../../public/reviews/7.png";
-import Image8 from "../../../public/reviews/8.png";
+import Image1 from "/public/reviews/1.png";
+import Image2 from "/public/reviews/2.png";
+import Image3 from "/public/reviews/3.png";
+import Image4 from "/public/reviews/4.png";
+import Image5 from "/public/reviews/5.png";
+import Image6 from "/public/reviews/6.png";
+import Image7 from "/public/reviews/7.png";
+import Image8 from "/public/reviews/8.png";
 const imageArray = [
     Image1,
     Image2,
@@ -51,7 +51,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import EstimateRequestForm from "./estimateRequestForm";
-import Home2 from "../../../public/home2.jpeg";
+import Home2 from "/public/home2.jpeg";
 
 export default function Home() {
     const router = useRouter();

@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import AboutUs from "../../../../public/aboutus.jpg";
-import ProjectCompleted from "../../../../public/projectcompleted.png";
-import Happpy from "../../../../public/happy.png";
-import Partner from "../../../../public/partners.png";
-import AboutUs2 from "../../../../public/aboutus2.jpg";
-import AboutUs1 from "../../../../public/aboutus1.png";
-import Contractor from "../../../../public/contractor.png";
+import AboutUs from "/public/aboutus.jpg";
+import ProjectCompleted from "/public/projectcompleted.png";
+import Happpy from "/public/happy.png";
+import Partner from "/public/partners.png";
+import AboutUs2 from "/public/aboutus2.jpg";
+import AboutUs1 from "/public/aboutus1.png";
+import Contractor from "/public/contractor.png";
 import { Button } from "@/components/ui/button";
 import {
     AlertDialog,
@@ -20,14 +20,14 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import EstimateRequestForm from "../estimateRequestForm";
-import Image1 from "../../../../public/reviews/1.png";
-import Image2 from "../../../../public/reviews/2.png";
-import Image3 from "../../../../public/reviews/3.png";
-import Image4 from "../../../../public/reviews/4.png";
-import Image5 from "../../../../public/reviews/5.png";
-import Image6 from "../../../../public/reviews/6.png";
-import Image7 from "../../../../public/reviews/7.png";
-import Image8 from "../../../../public/reviews/8.png";
+import Image1 from "/public/reviews/1.png";
+import Image2 from "/public/reviews/2.png";
+import Image3 from "/public/reviews/3.png";
+import Image4 from "/public/reviews/4.png";
+import Image5 from "/public/reviews/5.png";
+import Image6 from "/public/reviews/6.png";
+import Image7 from "/public/reviews/7.png";
+import Image8 from "/public/reviews/8.png";
 const imageArray = [
     Image1,
     Image2,

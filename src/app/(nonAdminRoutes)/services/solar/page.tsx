@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { MdEmail, MdCall } from "react-icons/md";
-import Solar1 from "../../../../../public/solar1.jpg";
-import Solar2 from "../../../../../public/solar2.jpg";
+import Solar1 from "/public/solar1.jpg";
+import Solar2 from "/public/solar2.jpg";
 import { Button } from "@/components/ui/button";
 import {
     AlertDialog,
