@@ -409,72 +409,74 @@ export default function NavBar() {
                                 Contact
                             </Link>
                         </li>
-                        <li
-                            className={`flex flex-col gap-2 relative cursor-pointer`}
-                        >
-                            <div
-                                className="flex justify-between items-center cursor-pointer"
-                                onClick={() =>
-                                    setMyAccountMobileNavOpen(
-                                        !myAccountMobileNavOpen
-                                    )
-                                }
+                        {loggedIn && (
+                            <li
+                                className={`flex flex-col gap-2 relative cursor-pointer`}
                             >
-                                <span>My Account</span>
-                                <ChevronDown
-                                    size={24}
-                                    className={`rotate-0 ${
+                                <div
+                                    className="flex justify-between items-center cursor-pointer"
+                                    onClick={() =>
+                                        setMyAccountMobileNavOpen(
+                                            !myAccountMobileNavOpen
+                                        )
+                                    }
+                                >
+                                    <span>My Account</span>
+                                    <ChevronDown
+                                        size={24}
+                                        className={`rotate-0 ${
+                                            myAccountMobileNavOpen
+                                                ? "rotate-180"
+                                                : ""
+                                        } duration-200 transition-all`}
+                                    />
+                                </div>
+                                <div
+                                    className={`flex flex-col gap-4 pl-4 border-l-2 border-l-[#004924] transition-all duration-200 origin-top ${
                                         myAccountMobileNavOpen
-                                            ? "rotate-180"
-                                            : ""
-                                    } duration-200 transition-all`}
-                                />
-                            </div>
-                            <div
-                                className={`flex flex-col gap-4 pl-4 border-l-2 border-l-[#004924] transition-all duration-200 origin-top ${
-                                    myAccountMobileNavOpen
-                                        ? "scale-y-100"
-                                        : "scale-y-0"
-                                }`}
-                            >
-                                <Link
-                                    onClick={() => setMenuOpen(false)}
-                                    className={
-                                        "py-1 " +
-                                        (pathName === "/estimaterequests"
-                                            ? "active w-fit"
-                                            : "")
-                                    }
-                                    href="/estimaterequests"
+                                            ? "scale-y-100"
+                                            : "scale-y-0"
+                                    }`}
                                 >
-                                    Estimate Requests
-                                </Link>
-                                <Link
-                                    onClick={() => setMenuOpen(false)}
-                                    className={
-                                        "py-1 " +
-                                        (pathName === "/appointmentrequests"
-                                            ? "active w-fit"
-                                            : "")
-                                    }
-                                    href="/appointmentrequests"
-                                >
-                                    Appointments
-                                </Link>
-                                <Link
-                                    onClick={() => setMenuOpen(false)}
-                                    className={
-                                        "py-1 " +
-                                        (pathName === "/contactrequests"
-                                            ? "active w-fit"
-                                            : "")
-                                    }
-                                    href="/contactrequests"
-                                >
-                                    Contact Requests
-                                </Link>
-                            </div>
-                        </li>
+                                    <Link
+                                        onClick={() => setMenuOpen(false)}
+                                        className={
+                                            "py-1 " +
+                                            (pathName === "/estimaterequests"
+                                                ? "active w-fit"
+                                                : "")
+                                        }
+                                        href="/estimaterequests"
+                                    >
+                                        Estimate Requests
+                                    </Link>
+                                    <Link
+                                        onClick={() => setMenuOpen(false)}
+                                        className={
+                                            "py-1 " +
+                                            (pathName === "/appointmentrequests"
+                                                ? "active w-fit"
+                                                : "")
+                                        }
+                                        href="/appointmentrequests"
+                                    >
+                                        Appointments
+                                    </Link>
+                                    <Link
+                                        onClick={() => setMenuOpen(false)}
+                                        className={
+                                            "py-1 " +
+                                            (pathName === "/contactrequests"
+                                                ? "active w-fit"
+                                                : "")
+                                        }
+                                        href="/contactrequests"
+                                    >
+                                        Contact Requests
+                                    </Link>
+                                </div>
+                            </li>
+                        )}
                     </ul>
                     <div className="flex flex-col gap-2">
                         {loggedIn ? (
