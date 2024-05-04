@@ -50,7 +50,7 @@ export default function Appointments() {
                         size="lg"
                         className="text-xl capitalize"
                     >
-                        Add New User
+                        Add New Appointment
                     </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent>

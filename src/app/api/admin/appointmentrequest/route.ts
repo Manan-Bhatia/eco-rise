@@ -3,7 +3,19 @@ import AppointmentRequest from "@/models/appointmentModel";
 
 export async function GET(request: NextRequest) {
     try {
-        const appointmentRequests = await AppointmentRequest.find();
+        let appointmentRequests = await AppointmentRequest.find();
+        appointmentRequests = appointmentRequests.map((appointmentRequest) => {
+            return {
+                ...appointmentRequest._doc,
+                appointmentDate: new Date(
+                    appointmentRequest.appointmentDate
+                ).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                }),
+            };
+        });
         return NextResponse.json(appointmentRequests, { status: 200 });
     } catch (error) {
         return NextResponse.json(

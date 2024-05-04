@@ -42,6 +42,10 @@ export const columns: ColumnDef<User>[] = [
     {
         accessorKey: "role",
         header: "Role",
+        meta: {
+            filterVariant: "select",
+        },
+
         cell: ({ row }) => {
             const role = row.getValue<string>("role");
             return (

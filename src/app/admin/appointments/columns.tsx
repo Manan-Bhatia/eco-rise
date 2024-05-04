@@ -45,6 +45,7 @@ export const columns: ColumnDef<AppointmentRequest>[] = [
     {
         accessorKey: "name",
         header: "Name",
+        filterFn: "includesString",
     },
     {
         accessorKey: "address",
@@ -61,35 +62,32 @@ export const columns: ColumnDef<AppointmentRequest>[] = [
     {
         accessorKey: "service",
         header: "Service",
+        meta: {
+            filterVariant: "select",
+        },
     },
 
     {
         accessorKey: "appointmentDate",
         header: "Appointment Date",
-        enableColumnFilter: false,
-        cell: ({ row }) => {
-            const date = new Date(
-                row.getValue<Date>("appointmentDate").toString()
-            );
-            return (
-                <div>
-                    {date.toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                    })}
-                </div>
-            );
+        meta: {
+            filterVariant: "date",
         },
+        enableSorting: false,
     },
     {
         accessorKey: "appointmentTime",
         header: "Appointment Time",
+        enableSorting: false,
         enableColumnFilter: false,
     },
     {
         accessorKey: "status",
         header: "Status",
+        meta: {
+            filterVariant: "select",
+        },
+
         cell: ({ row }) => {
             const status = row.getValue<string>("status");
             return (

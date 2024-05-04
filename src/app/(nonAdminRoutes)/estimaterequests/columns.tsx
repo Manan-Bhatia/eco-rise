@@ -59,10 +59,17 @@ export const columns: ColumnDef<EstimateRequest>[] = [
     {
         accessorKey: "service",
         header: "Service",
+        meta: {
+            filterVariant: "select",
+        },
     },
     {
         accessorKey: "status",
         header: "Status",
+        meta: {
+            filterVariant: "select",
+        },
+
         cell: ({ row }) => {
             const status = row.getValue<string>("status");
             return (

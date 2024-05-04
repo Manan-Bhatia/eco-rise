@@ -66,30 +66,23 @@ export const columns: ColumnDef<AppointmentRequest>[] = [
     {
         accessorKey: "appointmentDate",
         header: "Appointment Date",
-        enableColumnFilter: false,
-        cell: ({ row }) => {
-            const date = new Date(
-                row.getValue<Date>("appointmentDate").toString()
-            );
-            return (
-                <div>
-                    {date.toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                    })}
-                </div>
-            );
+        meta: {
+            filterVariant: "date",
         },
     },
     {
         accessorKey: "appointmentTime",
         header: "Appointment Time",
         enableColumnFilter: false,
+        enableSorting: false,
     },
     {
         accessorKey: "status",
         header: "Status",
+        meta: {
+            filterVariant: "select",
+        },
+
         cell: ({ row }) => {
             const status = row.getValue<string>("status");
             return (

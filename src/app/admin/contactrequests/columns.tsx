@@ -58,6 +58,10 @@ export const columns: ColumnDef<ContactRequest>[] = [
     {
         accessorKey: "status",
         header: "Status",
+        meta: {
+            filterVariant: "select",
+        },
+
         cell: ({ row }) => {
             const status = row.getValue<string>("status");
             return (

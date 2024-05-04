@@ -88,12 +88,24 @@ export async function GET(request: NextRequest) {
                 { status: 404 }
             );
         }
-        const requestsByUser = await AppointmentRequest.find({
+        let requestsByUser = await AppointmentRequest.find({
             user_id: user._id,
         });
-        if (requestsByUser.length > 0)
+        if (requestsByUser.length > 0) {
+            requestsByUser = requestsByUser.map((appointmentrequest) => {
+                return {
+                    ...appointmentrequest._doc,
+                    appointmentDate: new Date(
+                        appointmentrequest.appointmentDate
+                    ).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                    }),
+                };
+            });
             return NextResponse.json(requestsByUser, { status: 200 });
-        else
+        } else
             return NextResponse.json({
                 message: "No appointments found.",
             });
