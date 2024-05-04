@@ -60,6 +60,8 @@ export default function NavBar() {
     const [myAccountMobileNavOpen, setMyAccountMobileNavOpen] =
         useState<boolean>(false);
 
+    const [servicesMobileNavOpen, setServicesMovileNavOpen] =
+        useState<boolean>(false);
     return (
         <header className="flex justify-between p-2 md:px-10 md:py-5">
             <span className="text-2xl md:text-3xl font-bold">Eco Rise</span>
@@ -97,11 +99,10 @@ export default function NavBar() {
                             ></span>
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            href="/services"
+                    <li className="group relative">
+                        <div
                             className={
-                                "p-2 relative group flex flex-col items-center " +
+                                "p-2 relative flex flex-col items-center cursor-pointer " +
                                 (pathName === "/services" ? "active" : "")
                             }
                         >
@@ -111,7 +112,29 @@ export default function NavBar() {
                                     pathName === "/services" ? "hidden" : ""
                                 }`}
                             ></span>
-                        </Link>
+                        </div>
+                        <div
+                            className={`absolute flex-col top-full gap-2 hidden group-hover:flex w-full z-50 bg-white`}
+                        >
+                            <Link
+                                href="/services/paint"
+                                className="hover:bg-black hover:text-white p-2"
+                            >
+                                Paint
+                            </Link>
+                            <Link
+                                href="/services/solar"
+                                className="hover:bg-black hover:text-white p-2"
+                            >
+                                Solar
+                            </Link>
+                            <Link
+                                href="/services/battery"
+                                className="hover:bg-black hover:text-white p-2"
+                            >
+                                Battery
+                            </Link>
+                        </div>
                     </li>
                     <li>
                         <Link
@@ -284,17 +307,69 @@ export default function NavBar() {
                                 About us
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                onClick={() => setMenuOpen(false)}
-                                href="/services"
-                                className={
-                                    "py-1 " +
-                                    (pathName === "/services" ? "active" : "")
+                        <li
+                            className={`flex flex-col gap-2 relative cursor-pointer`}
+                        >
+                            <div
+                                className="flex justify-between items-center cursor-pointer"
+                                onClick={() =>
+                                    setServicesMovileNavOpen(
+                                        !servicesMobileNavOpen
+                                    )
                                 }
                             >
-                                Services
-                            </Link>
+                                <span>Services</span>
+                                <ChevronDown
+                                    size={24}
+                                    className={`rotate-0 ${
+                                        servicesMobileNavOpen
+                                            ? "rotate-180"
+                                            : ""
+                                    } duration-200 transition-all`}
+                                />
+                            </div>
+                            <div
+                                className={`flex flex-col gap-4 pl-4 border-l-2 border-l-[#004924] ${
+                                    servicesMobileNavOpen ? "" : "hidden"
+                                }`}
+                            >
+                                <Link
+                                    onClick={() => setMenuOpen(false)}
+                                    className={
+                                        "py-1 " +
+                                        (pathName === "/services/paint"
+                                            ? "active w-fit"
+                                            : "")
+                                    }
+                                    href="/services/paint"
+                                >
+                                    Paint
+                                </Link>
+                                <Link
+                                    onClick={() => setMenuOpen(false)}
+                                    className={
+                                        "py-1 " +
+                                        (pathName === "/services/solar"
+                                            ? "active w-fit"
+                                            : "")
+                                    }
+                                    href="/services/solar"
+                                >
+                                    Solar
+                                </Link>
+                                <Link
+                                    onClick={() => setMenuOpen(false)}
+                                    className={
+                                        "py-1 " +
+                                        (pathName === "/services/battery"
+                                            ? "active w-fit"
+                                            : "")
+                                    }
+                                    href="/services/battery"
+                                >
+                                    Battery
+                                </Link>
+                            </div>
                         </li>
                         <li>
                             <Link
