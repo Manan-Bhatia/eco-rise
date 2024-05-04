@@ -19,7 +19,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import {
+    MoreHorizontal,
+    ArrowUpDown,
+    CircleHelp,
+    CircleCheck,
+} from "lucide-react";
 import axios from "axios";
 import UpdateContactRequest from "./updateContactRequest";
 
@@ -60,7 +65,14 @@ export const columns: ColumnDef<ContactRequest>[] = [
                     variant={`${
                         status === "pending" ? "secondary" : "default"
                     }`}
+                    className="text-base flex gap-2 w-fit items-center"
                 >
+                    {status === "pending" ? (
+                        <CircleHelp size={20} />
+                    ) : (
+                        <CircleCheck size={20} />
+                    )}
+
                     {row.getValue<string>("status").charAt(0).toUpperCase() +
                         row.getValue<string>("status").slice(1)}
                 </Badge>
@@ -146,9 +158,7 @@ export const columns: ColumnDef<ContactRequest>[] = [
                     {isEditDialogOpen && (
                         <AlertDialogContent>
                             <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                    Edit Status
-                                </AlertDialogTitle>
+                                <AlertDialogTitle>Edit Status</AlertDialogTitle>
                             </AlertDialogHeader>
                             <UpdateContactRequest
                                 contactRequest={contactRequest}
