@@ -11,11 +11,7 @@ import {
 export default function DataTableSkeleton({ columns }: { columns: number }) {
     return (
         <div>
-            <div className="flex items-center justify-between pb-4">
-                <div className="flex items-center gap-4">
-                    <Skeleton className="h-8 w-60 " />
-                    <Skeleton className="h-8 w-32 " />
-                </div>
+            <div className="flex items-center justify-end pb-4">
                 <Skeleton className="w-40 h-8" />
             </div>
             <div className="rounded-md border">
