@@ -9,8 +9,12 @@ const appointmentSchema = new mongoose.Schema({
         type: String,
         enum: ["5 Day Roof", "Paint", "Solar", "Roof Coating"],
     },
+    name: String,
+    email: String,
+    phoneNumber: String,
+    address: String,
     appointmentDate: Date,
-    appointmentTime: Date,
+    appointmentTime: String,
     status: {
         type: String,
         enum: ["pending", "completed"],
@@ -18,8 +22,8 @@ const appointmentSchema = new mongoose.Schema({
     },
 });
 
-const Appointment =
+const AppointmentRequest =
     mongoose.models.appointments ||
     mongoose.model("appointments", appointmentSchema);
 
-export default Appointment;
+export default AppointmentRequest;

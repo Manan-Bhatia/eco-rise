@@ -200,7 +200,7 @@ export default function NavBar() {
                                     </DropdownMenuItem>
                                     <DropdownMenuItem asChild>
                                         <Link
-                                            href="/appointments"
+                                            href="/appointmentrequests"
                                             className="flex"
                                         >
                                             <Calendar className="mr-2 h-4 w-4" />
@@ -378,11 +378,11 @@ export default function NavBar() {
                                     onClick={() => setMenuOpen(false)}
                                     className={
                                         "py-1 " +
-                                        (pathName === "/appointments"
+                                        (pathName === "/appointmentrequests"
                                             ? "active w-fit"
                                             : "")
                                     }
-                                    href="/appointments"
+                                    href="/appointmentrequests"
                                 >
                                     Appointments
                                 </Link>

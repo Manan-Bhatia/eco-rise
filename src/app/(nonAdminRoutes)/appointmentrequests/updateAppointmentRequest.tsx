@@ -1,12 +1,25 @@
 "use client";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, addDays } from "date-fns";
-import { CalendarIcon, Loader2 } from "lucide-react";
 import { z } from "zod";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import {
     Form,
     FormControl,
@@ -15,29 +28,13 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-
 import { Input } from "@/components/ui/input";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+import { useState } from "react";
 
 const services = ["5 Day Roof", "Paint", "Solar", "Roof Coating"];
-const bookAppointmentSchema = z.object({
+const appointmentRequestSchema = z.object({
     service: z.enum(["5 Day Roof", "Paint", "Solar", "Roof Coating"]),
     name: z.string(),
     email: z.string().email(),
@@ -46,30 +43,43 @@ const bookAppointmentSchema = z.object({
     appointmentDate: z.date(),
     appointmentTime: z.string(),
 });
-type BookAppointSchemaType = z.infer<typeof bookAppointmentSchema>;
 
-export default function BookAppointment() {
-    const router = useRouter();
-    const form = useForm<BookAppointSchemaType>({
-        resolver: zodResolver(bookAppointmentSchema),
+type AppointmentRequestType = z.infer<typeof appointmentRequestSchema>;
+import { AppointmentRequest } from "./columns";
+
+export default function UpdateAppointmentRequestForm({
+    appointmentRequest,
+    callRefresh,
+}: {
+    appointmentRequest: AppointmentRequest;
+    callRefresh: () => void;
+}) {
+    const form = useForm<AppointmentRequestType>({
+        resolver: zodResolver(appointmentRequestSchema),
         defaultValues: {
-            name: "",
-            email: "",
-            phoneNumber: "",
-            address: "",
-            appointmentTime: "",
+            service: appointmentRequest.service,
+            name: appointmentRequest.name,
+            address: appointmentRequest.address,
+            phoneNumber: appointmentRequest.phoneNumber,
+            email: appointmentRequest.email,
+            appointmentDate: new Date(appointmentRequest.appointmentDate),
+            appointmentTime: appointmentRequest.appointmentTime,
         },
     });
     const [submitting, setSubmitting] = useState<boolean>(false);
-    async function onSubmit(data: BookAppointSchemaType) {
+    async function onSubmit(data: AppointmentRequestType) {
         try {
             setSubmitting(true);
-            const response = await axios.post("/api/appointmentrequest", data);
-            if (response.status === 201) {
+            const response = await axios.put("/api/appointmentrequest", {
+                ...data,
+                _id: appointmentRequest._id,
+            });
+            if (response.status === 200) {
                 toast.success(response.data.message, {
                     duration: 2000,
                     position: "bottom-center",
                 });
+                callRefresh();
             }
         } catch (error: any) {
             toast.error(error.response.data.message, {
@@ -81,13 +91,9 @@ export default function BookAppointment() {
         }
     }
     return (
-        <div className="flex items-center justify-center h-full">
+        <div>
             <div className="space-y-2">
                 <Toaster />
-                <h1>Book an appointment</h1>
-                <p>
-                    Fill in the details and we'll get in touch with you shortly!
-                </p>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}

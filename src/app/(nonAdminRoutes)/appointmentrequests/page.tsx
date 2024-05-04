@@ -1,23 +1,16 @@
 "use client";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { AppointmentRequest, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import DataTableSkeleton from "@/components/ui/data-table-skeleton";
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import AddAppointment from "./addAppointment";
 
 export default function Appointments() {
     const [data, setdata] = useState<AppointmentRequest[]>();
     const [error, setError] = useState<boolean>(false);
-    const getAllAppointmentRequests = async () => {
+    const getUserAppointmentRequests = async () => {
         try {
-            const res = await axios.get("/api/admin/appointmentrequest");
+            const res = await axios.get("/api/appointmentrequest");
             if (res.data.length > 0) setdata(res.data);
             else setdata([]);
         } catch (error) {
@@ -29,7 +22,7 @@ export default function Appointments() {
     useEffect(() => {
         if (timeout) clearTimeout(timeout);
         timeout = setTimeout(() => {
-            getAllAppointmentRequests();
+            getUserAppointmentRequests();
         }, 200);
     }, []);
 
@@ -43,24 +36,6 @@ export default function Appointments() {
             ) : (
                 <DataTableSkeleton columns={8} />
             )}
-            <Collapsible className="space-y-4">
-                <CollapsibleTrigger>
-                    <Button
-                        variant="outline"
-                        size="lg"
-                        className="text-xl capitalize"
-                    >
-                        Add New User
-                    </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                    <div className="border rounded-lg p-4 flex justify-center">
-                        <AddAppointment
-                            callRefresh={getAllAppointmentRequests}
-                        />
-                    </div>
-                </CollapsibleContent>
-            </Collapsible>
         </div>
     );
 }

@@ -48,7 +48,11 @@ const bookAppointmentSchema = z.object({
 });
 type BookAppointSchemaType = z.infer<typeof bookAppointmentSchema>;
 
-export default function BookAppointment() {
+export default function AddAppointment({
+    callRefresh,
+}: {
+    callRefresh: () => void;
+}) {
     const router = useRouter();
     const form = useForm<BookAppointSchemaType>({
         resolver: zodResolver(bookAppointmentSchema),
@@ -70,6 +74,7 @@ export default function BookAppointment() {
                     duration: 2000,
                     position: "bottom-center",
                 });
+                callRefresh();
             }
         } catch (error: any) {
             toast.error(error.response.data.message, {
@@ -81,13 +86,9 @@ export default function BookAppointment() {
         }
     }
     return (
-        <div className="flex items-center justify-center h-full">
+        <div className="space-y-2 w-full md:w-2/5">
             <div className="space-y-2">
                 <Toaster />
-                <h1>Book an appointment</h1>
-                <p>
-                    Fill in the details and we'll get in touch with you shortly!
-                </p>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
