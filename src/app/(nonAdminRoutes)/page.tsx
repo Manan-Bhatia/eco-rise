@@ -226,7 +226,28 @@ export default function Home() {
                         Traditional loans with no prepayment penalties
                     </h3>
                 </div>
-                <Button className="w-11/12 md:w-1/4">Get Estimate</Button>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button className="w-11/12 md:w-1/4">
+                            Get Estimate
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Get Estimate</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Fill in the details and we'll get back to you
+                                shortly!
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <EstimateRequestForm />
+                        <AlertDialogFooter>
+                            <AlertDialogCancel className="w-full">
+                                Cancel
+                            </AlertDialogCancel>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
             {/* contact */}
             <div className="w-full bg-[#317f48] text-white flex items-center justify-center py-4 gap-10">
