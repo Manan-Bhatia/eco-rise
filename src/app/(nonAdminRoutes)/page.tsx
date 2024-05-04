@@ -51,58 +51,71 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import EstimateRequestForm from "./estimateRequestForm";
+import Home2 from "../../../public/home2.jpeg";
 
 export default function Home() {
     const router = useRouter();
 
     return (
-        <div className="h-full flex flex-col gap-4">
+        <div className="h-full flex flex-col">
             {/* hero */}
-            <div className="flex flex-col items-center justify-center basis-full">
-                <h1 className="text-center">
-                    Exceeding Expectations Since 2009
-                </h1>
-                <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                        <Button>Get Estimate</Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Get Estimate</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                Fill in the details and we'll get back to you
-                                shortly!
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <EstimateRequestForm />
-                        <AlertDialogFooter>
-                            <AlertDialogCancel className="w-full">
-                                Cancel
-                            </AlertDialogCancel>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+            <div className="flex flex-col items-center justify-center basis-full relative p-5">
+                <Image
+                    src={Home2}
+                    alt="Hero Image"
+                    className="absolute h-full w-full object-cover z-10"
+                />
+                <div className="z-20">
+                    <h1 className="text-center">
+                        Exceeding Expectations Since 2009
+                    </h1>
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button className="w-full">Get Estimate</Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                    Get Estimate
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    Fill in the details and we'll get back to
+                                    you shortly!
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <EstimateRequestForm />
+                            <AlertDialogFooter>
+                                <AlertDialogCancel className="w-full">
+                                    Cancel
+                                </AlertDialogCancel>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
 
-                <div className="mt-4 grid grid-cols-2 grid-rows-2 gap-4">
-                    <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center">
-                        <Image src={FiveDayRoof} alt={"5 Day Roof"} />
-                        <h3>5 Day Roof</h3>
-                    </div>
-                    <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center">
-                        <Image src={LifeTimePaint} alt={"Life Time Paint"} />
-                        <h3>Life Time Paint</h3>
-                    </div>
-                    <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center">
-                        <Image src={Solar} alt={"Solar"} />
-                        <h3>Solar</h3>
-                    </div>
-                    <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center">
-                        <Image
-                            src={RoofCoating}
-                            alt={"Roof Coating (Commercial)"}
-                        />
-                        <h3>Roof Coating</h3>
-                        <h3>(Commercial)</h3>
+                    <div className="mt-4 grid grid-cols-2 grid-rows-2 gap-4">
+                        <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center bg-white/75">
+                            <Image src={FiveDayRoof} alt={"5 Day Roof"} />
+                            <h3>5 Day Roof</h3>
+                        </div>
+                        <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center bg-white/75">
+                            <Image
+                                src={LifeTimePaint}
+                                alt={"Life Time Paint"}
+                            />
+                            <h3>Life Time Paint</h3>
+                        </div>
+                        <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center bg-white/75">
+                            <Image src={Solar} alt={"Solar"} />
+                            <h3>Solar</h3>
+                        </div>
+                        <div className="aspect-square h-min p-4 border rounded-lg flex flex-col items-center justify-center bg-white/75">
+                            <Image
+                                src={RoofCoating}
+                                alt={"Roof Coating (Commercial)"}
+                            />
+                            <h3>Roof Coating</h3>
+                            <h3>(Commercial)</h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -250,7 +263,7 @@ export default function Home() {
                 </AlertDialog>
             </div>
             {/* contact */}
-            <div className="w-full bg-[#317f48] text-white flex items-center justify-center py-4 gap-10">
+            <div className="mt-4 w-full bg-[#317f48] text-white flex items-center justify-center py-4 gap-10">
                 <div className="flex flex-col items-center justify-center">
                     <MdEmail size={36} />
                     <h3>Email</h3>
