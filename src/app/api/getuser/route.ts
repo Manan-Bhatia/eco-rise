@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import getUserFromToken from "@/helpers/getUserFromToken";
 
+import { connect } from "@/helpers/dbConfig";
+connect();
 export async function GET(request: NextRequest) {
     try {
         const user = await getUserFromToken(request);

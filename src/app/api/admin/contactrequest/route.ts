@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import ContactRequest from "@/models/contactRequestModel";
 
+import { connect } from "@/helpers/dbConfig";
+connect();
 export async function GET(request: NextRequest) {
     try {
         const contactRequests = await ContactRequest.find();

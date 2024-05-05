@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import AppointmentRequest from "@/models/appointmentModel";
 
+import { connect } from "@/helpers/dbConfig";
+connect();
 export async function GET(request: NextRequest) {
     try {
         let appointmentRequests = await AppointmentRequest.find();
