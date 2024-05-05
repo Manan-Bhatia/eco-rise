@@ -14,7 +14,7 @@ const contactRequestSchema = new mongoose.Schema({
         enum: ["pending", "closed"],
         default: "pending",
     },
-});
+},{timestamps:true});
 
 const ContactRequest =
     mongoose.models.contactrequests ||

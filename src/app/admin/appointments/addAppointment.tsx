@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { format, addDays } from "date-fns";
+import { format, addDays, addBusinessDays } from "date-fns";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
     Form,
     FormControl,
+    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -160,7 +161,7 @@ export default function AddAppointment({
                                             <Select
                                                 onValueChange={(value) =>
                                                     field.onChange(
-                                                        addDays(
+                                                        addBusinessDays(
                                                             new Date(),
                                                             parseInt(value)
                                                         )
@@ -189,10 +190,18 @@ export default function AddAppointment({
                                                 mode="single"
                                                 selected={field.value}
                                                 onSelect={field.onChange}
-                                                disabled={(date: Date) =>
-                                                    date <
-                                                    addDays(new Date(), -1)
-                                                }
+                                                disabled={(date: Date) => {
+                                                    return (
+                                                        date <
+                                                            addBusinessDays(
+                                                                new Date(),
+                                                                -1
+                                                            ) ||
+                                                        date.getDay() === 0 ||
+                                                        date.getDay() === 6
+                                                    );
+                                                }}
+                                                weekStartsOn={1}
                                                 initialFocus
                                             />
                                         </PopoverContent>
@@ -212,8 +221,15 @@ export default function AddAppointment({
                                             type="time"
                                             placeholder="Appointment Time"
                                             {...field}
+                                            min="09:00"
+                                            max="18:00"
                                         />
                                     </FormControl>
+                                    <FormDescription>
+                                        Office hours are between 9:00 AM and
+                                        6:00 PM
+                                    </FormDescription>
+
                                     <FormMessage />
                                 </FormItem>
                             )}

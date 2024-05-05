@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { format, addDays } from "date-fns";
+import { format, addDays, addBusinessDays } from "date-fns";
 import { cn } from "@/lib/utils";
 import { DataTablePagination } from "./data-table-pagination";
 import {
@@ -328,6 +328,14 @@ function Filter({ column }: { column: Column<any, unknown> }) {
                                 })
                             );
                         }}
+                        disabled={(date: Date) => {
+                            return (
+                                date < addBusinessDays(new Date(), -1) ||
+                                date.getDay() === 0 ||
+                                date.getDay() === 6
+                            );
+                        }}
+                        weekStartsOn={1}
                         initialFocus
                     />
                     <Button

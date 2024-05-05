@@ -3,7 +3,7 @@ import { Calendar, Mail, Receipt, Users } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState, useEffect } from "react";
-import axiois from "axios";
+
 import axios from "axios";
 export default function Admin() {
     const [data, setData] = useState<{

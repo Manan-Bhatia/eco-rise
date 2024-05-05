@@ -4,7 +4,6 @@ import getUserFromToken from "@/helpers/getUserFromToken";
 export async function GET(request: NextRequest) {
     try {
         const user = await getUserFromToken(request);
-        console.log(user);
         if (user)
             return NextResponse.json(
                 {
