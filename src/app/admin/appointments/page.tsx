@@ -35,7 +35,7 @@ export default function Appointments() {
 
     return (
         <div className="p-2 md:px-10 md:py-5">
-            <h1>My Appointment</h1>
+            <h1>All Appointments</h1>
             {data ? (
                 <DataTable columns={columns} data={data} />
             ) : error ? (

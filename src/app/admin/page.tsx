@@ -30,7 +30,6 @@ export default function Admin() {
     }, []);
     return (
         <div>
-            <h1>Admin Dashboard</h1>
             <div className="flex flex-col lg:flex-row gap-4 justify-between">
                 <Link href="/admin/users" className="flex-1">
                     <div className="rounded-lg border p-4 flex flex-col justify-center gap-2">
