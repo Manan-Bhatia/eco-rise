@@ -50,6 +50,24 @@ const bookAppointmentSchema = z.object({
 type BookAppointSchemaType = z.infer<typeof bookAppointmentSchema>;
 
 export default function BookAppointment() {
+    const [userAddress, setUserAddress] = useState<string>("");
+    const getUserAddress = async () => {
+        try {
+            const res = await axios.get("/api/getuser");
+            if (res.data.address != "") setUserAddress(res.data.address);
+        } catch (error) {
+            console.log("Error getting user address", error);
+        }
+    };
+
+    let timeout: NodeJS.Timeout;
+    useEffect(() => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            getUserAddress();
+        }, 100);
+        return () => clearTimeout(timeout);
+    }, []);
     const router = useRouter();
     const form = useForm<BookAppointSchemaType>({
         resolver: zodResolver(bookAppointmentSchema),
@@ -61,6 +79,9 @@ export default function BookAppointment() {
             appointmentTime: "",
         },
     });
+    useEffect(() => {
+        if (userAddress) form.reset({ address: userAddress });
+    }, [userAddress]);
     const [submitting, setSubmitting] = useState<boolean>(false);
     async function onSubmit(data: BookAppointSchemaType) {
         try {
@@ -257,6 +278,11 @@ export default function BookAppointment() {
                                             {...field}
                                         />
                                     </FormControl>
+                                    {userAddress != "" && (
+                                        <FormDescription>
+                                            *Saved Address
+                                        </FormDescription>
+                                    )}
                                     <FormMessage />
                                 </FormItem>
                             )}
