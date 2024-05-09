@@ -214,6 +214,17 @@ export default function NavBar() {
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem asChild>
                                         <Link
+                                            className="flex"
+                                            href="/myaccount/profile"
+                                        >
+                                            <FaRegCircleUser className="cursor-pointer mr-2 h-4 w-4" />
+
+                                            <span>View Account</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+
+                                    <DropdownMenuItem asChild>
+                                        <Link
                                             href="/estimaterequests"
                                             className="flex"
                                         >
@@ -438,6 +449,18 @@ export default function NavBar() {
                                             : "scale-y-0"
                                     }`}
                                 >
+                                    <Link
+                                        onClick={() => setMenuOpen(false)}
+                                        className={
+                                            "py-1 " +
+                                            (pathName.startsWith("/myaccount")
+                                                ? "active w-fit"
+                                                : "")
+                                        }
+                                        href="/myaccount/profile"
+                                    >
+                                        View Account
+                                    </Link>
                                     <Link
                                         onClick={() => setMenuOpen(false)}
                                         className={
